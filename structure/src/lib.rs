@@ -7,7 +7,7 @@ pub mod context;
 #[cfg(test)]
 use self::context::Context;
 #[test]
-fn it_works() {
+fn sammple_context_creation() {
 	let context = Context::from_str("Crap begets crap".to_string());
 	assert_eq!(context.get_count(), 1);
 }
