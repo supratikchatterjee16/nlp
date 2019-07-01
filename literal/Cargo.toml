@@ -1,9 +1,0 @@
-[package]
-name = "literal"
-version = "0.1.0"
-authors = ["Supratik Chatterjee <supratikdevm96@gmail.com>"]
-edition = "2018"
-
-[dependencies]
-
-tag = {path = "../tag"}

@@ -1,6 +1,6 @@
-use tag::Tag;
+use crate::tag::Tag;
 use std::collections::LinkedList;
-pub struct Literal{
+pub struct Token{
 	content :String,
 	category : i8,
 	tags: LinkedList<Tag>
@@ -8,15 +8,15 @@ pub struct Literal{
 	//0 int, 1 words, 2 alphanumeric, 3 whitespace
 	//4 punctuator, 5 end-punctuator, 6 special character
 }
-impl Literal{
+impl Token{
 	//Constructors
-	fn create_new(text : String, cat : i8 )-> Literal{
-		Literal{content : text,category : cat, tags : LinkedList::new()}
+	fn create_new(text : String, cat : i8 )-> Token{
+		Token{content : text,category : cat, tags : LinkedList::new()}
 	}
-	pub fn new(){
-
+	pub fn new() -> Token{
+		Token{content : String::new(), category : -1, tags : LinkedList::new()}
 	}
-	pub fn new_from_str(text:String) -> Literal{
+	pub fn from_str(text:String) -> Token{
 		//This function generates the token that is to be used as a token everywhere...
 		let mut kind : i8 = -1;
 
@@ -69,16 +69,22 @@ impl Literal{
 			}
 		}
 		//println!("{}",kind);
-		Literal::create_new(text,kind)
+		Token::create_new(text,kind)
 	}
 	//Setters
 	pub fn add_tag(&mut self, tag : Tag){
 		self.tags.push_back(tag);
 	}
-	pub fn set_tag(&mut self, tagger_id : String, tag : Tag){
-		for tags in self.tags{
-			
+	pub fn set_tag(&mut self, tagger_id : String, tag_value : String){
+		//When not sure if id has been set already, use this to lower chances of redundancy
+		//Checks and assign if not found
+		for tag in &mut self.tags{
+			if tag.get_id() == tagger_id{
+				tag.set_value(tag_value);
+				return;
+			}
 		}
+		self.add_tag(Tag::create_new(tagger_id, tag_value))
 	}
 	//Getters
 	pub fn get_content(&self) -> String{

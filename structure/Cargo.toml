@@ -1,5 +1,5 @@
 [package]
-name = "tag"
+name = "structure"
 version = "0.1.0"
 authors = ["Supratik Chatterjee <supratikdevm96@gmail.com>"]
 edition = "2018"
