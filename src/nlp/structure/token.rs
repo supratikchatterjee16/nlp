@@ -1,5 +1,6 @@
-use crate::tag::Tag;
+use crate::nlp::structure::Tag;
 use std::collections::LinkedList;
+
 pub struct Token{
 	content :String,
 	category : i8,

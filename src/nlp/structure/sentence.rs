@@ -1,5 +1,5 @@
-use crate::token::Token;
-use crate::tag::Tag;
+use crate::nlp::structure::Token;
+use crate::nlp::structure::Tag;
 use std::collections::LinkedList;
 
 pub struct Sentence{

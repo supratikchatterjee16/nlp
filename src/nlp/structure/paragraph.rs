@@ -1,5 +1,5 @@
-use crate::sentence::Sentence;
-use crate::tag::Tag;
+use crate::nlp::structure::Sentence;
+use crate::nlp::structure::Tag;
 use std::collections::LinkedList;
 
 pub struct Paragraph{

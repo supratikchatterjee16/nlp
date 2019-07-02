@@ -1,6 +1,7 @@
-use crate::paragraph::Paragraph;
-use crate::tag::Tag;
+use crate::nlp::structure::Paragraph;
+use crate::nlp::structure::Tag;
 use std::collections::LinkedList;
+
 pub struct Context{
 	paragraphs : LinkedList<Paragraph>,
 	title : String, //Optional
