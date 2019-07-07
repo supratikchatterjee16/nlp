@@ -72,3 +72,20 @@ They are of the following types:
 
 Contains a list of paragaraphs and metadata. 
 Metadata information, will be used for confidence level classification in associated Contexts.
+
+Contexts can be classified(and subclassified into the following):
+
+1. Literary [1](https://mason.gmu.edu/~rnanian/305context.html)
+	* Authorial
+	* Socio-historical
+	* Philosophical
+	* Literary
+	* Critical
+2. Communicative [2](http://oregonstate.edu/instruct/theory/contexts.html)
+	* Historical
+	* Psychological
+	* Cultural
+	* Social
+	* Physical
+
+Classification of contexts are for improved sentiment analysis. It also helps in discrete sentiment analysis. 
