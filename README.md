@@ -1,10 +1,15 @@
 # Rust NLP
 
-This is an experimental prototype to test the limits of programming in Rust.
-It is meant to be an NLP module that lets people to analyze sentence structures, create their own custom logics and ultimately utilize this to create systems that can use Natural Language more freely than other systems.
-
-First of all, this is being made for scripts that are closely related to the English script.
+This project is an NLP tool made in Rust.
 The concepts are going to be written below as this develops.
+
+Targetted use cases are Communications and Literature.
+
+Additionally, for relating language structures, if possible.
+
+Current target : Coreference resolution, NER and Sentiment Tracking.
+
+Precursor : Contextual classification of sentiment in a sentence.
 
 ## Tag
 
@@ -29,15 +34,41 @@ Tokens are the basic blocks that a person is going to deal with. Their classific
 	* Endings	: Punctuations used to end sentences
 	* Others	: Every other punctuation that can be used.
 
+Tokens will be classified by annotators.
+
+
+
 ## Sentence
 
-These are the next blocks of information that stores the semantics of the entered sentence in the 'Token' elements, as a list.
+This is a superblock of Token. 
+
+This can be utilized for filtration, by understanding the type of sentence.
+
+Types of Sentences(based on content) are:
+1. Imperative
+2. Assertive/Declarative
+3. Interrogative
+4. Exclamatory
+
+Sentences however can be classified further based on structure.
+They can be classified as :
+1. Simple : Has 1 independent clause and is a whole sentence
+2. Compound : Uses FANBOYS(coordinating conjunctions) to connect 2 connected clauses(1 independent, 1 dependent)
+3. Complex : Has 1 independent and has atleast 1 dependent clause. Uses subordinate conjunctions.
+
+They aren't easy to classify, as punctuation usage is not well defined.
 
 ## Paragraph
 
-These are a build on Literal to facilitate data structuring, based on the semantics stated by the different grammars.
+A super block of sentences to store various other information. 
+Each paragraph speaks on either one topic, or gives opinions of a person.
+They are of the following types:
+1. Descriptive
+2. Expository
+3. Narrative
+4. Persuasive
 
 ## Context
 
-Contains a list of paragaraphs.
-
+Contains a list of paragaraphs and metadata. 
+Metadata information, will be used for confidence level classification in associated Contexts.
