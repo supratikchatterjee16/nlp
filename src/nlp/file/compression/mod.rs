@@ -5,14 +5,13 @@
 * YEAR OF CREATION   : 2019
 * YEAR OF COMPLETION : ----
 *
+* MODULE : COMPRESSION
+*
 * MODULE DESCRIPTON
-* 
-* 
+* Contains all compression logic.
+*
+* LICENSE : GNU AFFERO GENERAL PUBLIC LICENSE V3.0
 */
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}
+
+
+ 

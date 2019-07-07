@@ -1,54 +1,62 @@
 use crate::nlp::structure::Token;
+/**
+* TITLE  : NLP
+* DESCRIPTION : NLP PACKAGE FOR MORE FASTER AND EFFICIENT ANALYSIS AND UNDERSTANDING OF TEXTS.
+* AUTHOR : SUPRATIK CHATTERJEE
+* YEAR OF CREATION   : 2019
+* YEAR OF COMPLETION : ----
+*
+* MODULE DESCRIPTON
+* 
+* 
+*/
 use crate::nlp::structure::Tag;
 use std::collections::LinkedList;
 
+#[derive(Debug, Clone)]
 pub struct Sentence{
-	literals : LinkedList<Token>,
-	tags : LinkedList<Tag>
+	text : String,
+	delimiter : String,
+	tokens : LinkedList<Token>,
+	tags : LinkedList<Tag>,
+	is_tokenized : bool
 }
+
 impl Sentence{
 	//Common private functions
-	fn create_literal_list(text : String) -> LinkedList<Token>{
-		let mut list : LinkedList<Token> = LinkedList::new();
-		let mut temp = String::new();
-		for ch in text.chars(){
-			if ch.is_ascii_alphanumeric()&&!ch.is_ascii_whitespace(){
-				temp.push(ch);
-			}
-			else{
-				list.push_back(Token::from_str(temp.clone()));
-				temp = String::new();
-				temp.push(ch);
-				list.push_back(Token::from_str(temp.clone()));
-				temp = String::new();
-			}
-		}
-		if temp.len() > 1{
-			list.push_back(Token::from_str(temp.clone()));
-		}
-		list
-	}
 	//Common public functions
-	pub fn to_string(&self) -> String{
-		let mut temp = String::new();
-		for text in &self.literals{
-			temp.insert_str(temp.len(),&text.get_content());
+	pub fn tokenize(&mut self){
+		let mut token = String::new();
+		for i in self.text.chars(){
+			let mut flag = false;
+			for j in self.delimiter.chars(){
+				if i==j{
+					flag = true;
+				}
+			}
+			if flag == true{
+				self.tokens.push_back(Token::from_str(token.clone()));
+				token.clear();
+				token.insert(0,i);
+				self.tokens.push_back(Token::from_str(token.clone()));
+				token.clear();
+			}
+			else { token.insert(token.len(), i); }
 		}
-		temp
+		if token.len() > 0{
+			self.tokens.push_back(Token::from_str(token.clone()));
+		}
 	}
 	//Constructing functions
 	pub fn new() -> Sentence{
-		Sentence{literals : LinkedList::new(), tags : LinkedList::new()}
+		Sentence{tokens : LinkedList::new(), tags : LinkedList::new(), text : String::new(), delimiter : String::from(" .!?,;\'\"".to_string()), is_tokenized : false}
 	}
-
+	
 	pub fn from_str(text : String) -> Sentence{
-		Sentence{literals: Sentence::create_literal_list(text), tags : LinkedList::new()}
+		Sentence{text : text, tokens: LinkedList::new(), tags : LinkedList::new(), delimiter : String::from(" ".to_string()), is_tokenized : false}
 	}
-
+	 
 	//Setters
-	pub fn add_tag(&mut self, tag : Tag){
-		self.tags.push_back(tag);
-	}
 	pub fn set_tag(&mut self, tagger_id : String, tag_value : String){
 		//When not sure if id has been set already, use this to lower chances of redundancy
 		//Checks and assign if not found
@@ -58,43 +66,36 @@ impl Sentence{
 				return;
 			}
 		}
-		self.add_tag(Tag::create_new(tagger_id, tag_value))
+		self.tags.push_back(Tag::create_new(tagger_id, tag_value));
 	}
+	
+	pub fn set_delimiter(&mut self, delim : String){
+		self.delimiter = delim;
+	}
+	
 	//Getters
-	pub fn get_nth_element(&self, n:u8) -> Option<Token>{
-		let mut literal = Token::new();
-		let mut x = 0;
-		for literal in &self.literals{
-			if x<=n{
-				x = x+1;
+	pub fn get_tokens(&self) -> &LinkedList<Token>{
+		&self.tokens
+	}//Only borrow, ownership reserved to the object
+	pub fn get_tags(&self) -> &LinkedList<Tag>{
+		&self.tags
+	}
+	pub fn get_tag(&self, id : String) -> Option<Tag>{
+		for tag in &self.tags{
+			if tag.get_id() == id{
+				return Some(tag.clone());
 			}
-			else{return None;}
 		}
-		Some(literal)
+		None
 	}
-	pub fn get_nth_string(&self, n: u8) -> String{
-		let mut temp = String::new();
+	pub fn get_token(&self, index : usize) -> Option<Token>{
 		let mut x = 0;
-		for text in &self.literals{
-			if x <= n{
-				temp.insert_str(temp.len(),&text.get_content());
-				x = x+1;
+		for token in &self.tokens{
+			if x == index{
+				return Some(token.clone());
 			}
-			else{break;}
+			x = x + 1;
 		}
-		if temp.len()==0{temp = String::from("Not found");}
-		temp
-	}
-
-	pub fn get_nth_type(&self, n : u8) -> String{
-		String::new()
-	}
-	pub fn get_types_string(&self) -> String{
-		let mut temp = String::new();
-		for text in &self.literals{
-			temp.insert_str(temp.len(),&text.get_type().to_string());
-			temp.insert_str(temp.len()," ");
-		}
-		temp
+		None
 	}
 }

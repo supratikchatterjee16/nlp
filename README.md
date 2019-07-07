@@ -19,7 +19,7 @@ Tokens are the basic blocks that a person is going to deal with. Their classific
 * Numeric
 	* Normal	: Integers
 	* Special	: Floats, Dates, etc.
-> This is not done in the API at low level. This is done using Anotators at a higher level
+> This is not done in the API at low level. This is done using Annotators at a higher level
 * Alphabetic
 	* Normal 	: Word
 	* Special	: Names/Entities

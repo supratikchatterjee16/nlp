@@ -1,4 +1,15 @@
 use crate::nlp::structure::Sentence;
+/**
+* TITLE  : NLP
+* DESCRIPTION : NLP PACKAGE FOR MORE FASTER AND EFFICIENT ANALYSIS AND UNDERSTANDING OF TEXTS.
+* AUTHOR : SUPRATIK CHATTERJEE
+* YEAR OF CREATION   : 2019
+* YEAR OF COMPLETION : ----
+*
+* MODULE DESCRIPTON
+* 
+* 
+*/
 use crate::nlp::structure::Tag;
 use std::collections::LinkedList;
 

@@ -1,81 +1,39 @@
+/*
+* TITLE  : NLP
+* DESCRIPTION : NLP PACKAGE FOR MORE FASTER AND EFFICIENT ANALYSIS AND UNDERSTANDING OF TEXTS.
+* AUTHOR : SUPRATIK CHATTERJEE
+* YEAR OF CREATION   : 2019
+* YEAR OF COMPLETION : ----
+*
+* MODULE DESCRIPTON
+* Contains the structure for tokenization of text.
+* 
+*/
+
 use crate::nlp::structure::Tag;
 use std::collections::LinkedList;
 
+#[derive(Debug, Clone)]
 pub struct Token{
 	content :String,
-	category : i8,
 	tags: LinkedList<Tag>
-	//Categories:
-	//0 int, 1 words, 2 alphanumeric, 3 whitespace
-	//4 punctuator, 5 end-punctuator, 6 special character
 }
 impl Token{
 	//Constructors
-	fn create_new(text : String, cat : i8 )-> Token{
-		Token{content : text,category : cat, tags : LinkedList::new()}
-	}
 	pub fn new() -> Token{
-		Token{content : String::new(), category : -1, tags : LinkedList::new()}
+		Token{content : String::new(), tags : LinkedList::new()}
 	}
 	pub fn from_str(text:String) -> Token{
 		//This function generates the token that is to be used as a token everywhere...
-		let mut kind : i8 = -1;
-
-		for character in text.chars(){
-			if character.is_numeric(){
-				if kind==-1||kind==0{kind = 0; }
-				else if kind==1||kind==2{kind = 2; }
-				else{
-					kind = -2;
-					break;
-				}
-			}
-			else if character.is_alphabetic(){
-				if kind==-1||kind == 1{ kind = 1; }
-				else if kind==0||kind==2{ kind = 2; }
-				else{
-					kind = -2;
-					break;
-				}
-			}
-			else if character.is_ascii_whitespace(){
-				if kind==-1||kind ==3{ kind = 3; }
-				else{
-					kind = -2;
-					break;
-				}
-			}
-			else if character.is_ascii_punctuation(){
-				if kind==-1{
-					if character=='.'||character == '!'||character=='?'{
-						kind = 5;
-					}
-					else{
-						kind = 4;
-					}
-				}
-				else{
-					kind = -2;
-					break;
-				}
-			}
-			else{
-				if kind==-1{
-					kind = 6;
-				}
-				else{
-					kind = -2;
-					break;
-				}
-			}
-		}
-		//println!("{}",kind);
-		Token::create_new(text,kind)
+		Token{content : text, tags : LinkedList::new()}
 	}
+	
 	//Setters
-	pub fn add_tag(&mut self, tag : Tag){
-		self.tags.push_back(tag);
+	pub fn clear(&mut self){
+		self.content = String::new();
+		self.tags.clear();
 	}
+	
 	pub fn set_tag(&mut self, tagger_id : String, tag_value : String){
 		//When not sure if id has been set already, use this to lower chances of redundancy
 		//Checks and assign if not found
@@ -85,68 +43,19 @@ impl Token{
 				return;
 			}
 		}
-		self.add_tag(Tag::create_new(tagger_id, tag_value))
+		self.tags.push_back(Tag::create_new(tagger_id, tag_value))
 	}
+	
 	//Getters
 	pub fn get_content(&self) -> String{
 		self.content.clone()
 	}
-	pub fn get_type(&self) -> i8{
-		self.category
-	}
+	
 	pub fn get_size(&self) -> usize{
 		self.content.len()
 	}
-	pub fn is_number(&self) -> bool{
-		match self.category==0{
-			true => true,
-			false => false
-		}
-	}
-	pub fn is_word(&self) -> bool{
-		match self.category == 1{
-			true => true,
-			false => false
-		}
-	}
-	pub fn is_alphanumeric(&self) -> bool{
-		match self.category == 2{
-			true => true,
-			false => false
-		}
-	}
-	pub fn is_whitespace(&self) -> bool{
-		match self.category == 3{
-			true => true,
-			false => false
-		}
-	}
-	pub fn is_puntuator(&self) -> bool{
-		match self.category == 4|| self.category == 5{
-			true => true,
-			false => false
-		}
-	}
-	pub fn is_end_puntuator(&self) -> bool{
-		match self.category == 5{
-			true => true,
-			false => false
-		}
-	}
-	pub fn is_special_char(&self) -> bool{
-		match self.category == 6{
-			true => true,
-			false => false
-		}
-	}
-	pub fn is_error(&self) -> bool{
-		match self.category<0{
-			true => true,
-			false => false
-		}
-	}
-
-	pub fn find_tag(&self, tagger_id : String) -> String{
+	
+	pub fn get_tag(&self, tagger_id : String) -> String{
 		let mut resp = String::from("Not found");
 		for tag in &self.tags{
 			if tag.get_id() == tagger_id{
@@ -154,5 +63,9 @@ impl Token{
 			}
 		}
 		resp.clone()
+	}
+	
+	pub fn get_all_tags(&self) -> &LinkedList<Tag>{
+		&self.tags
 	}
 }

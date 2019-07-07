@@ -1,3 +1,14 @@
+/**
+* TITLE  : NLP
+* DESCRIPTION : NLP PACKAGE FOR MORE FASTER AND EFFICIENT ANALYSIS AND UNDERSTANDING OF TEXTS.
+* AUTHOR : SUPRATIK CHATTERJEE
+* YEAR OF CREATION   : 2019
+* YEAR OF COMPLETION : ----
+*
+* MODULE DESCRIPTON
+* 
+* 
+*/
 use crate::nlp::structure::Paragraph;
 use crate::nlp::structure::Tag;
 use std::collections::LinkedList;
@@ -38,8 +49,14 @@ impl Context{
 		resp
 	}
 	//Setters
+	pub fn set_title(&mut self, title : String){
+		self.title = title;
+	}
 	//Getters
 	pub fn get_count(&self) -> u32{
 		self.count.clone()
 	}
+	
+	pub fn get_title(&self) -> &String{&self.title}
+	pub fn get_tags(&self) -> &LinkedList<Tag>{&self.tags}
 }
