@@ -45,24 +45,28 @@ This is a superblock of Token.
 This can be utilized for filtration, by understanding the type of sentence.
 
 Types of Sentences(based on content) are:
+
 1. Imperative
 2. Assertive/Declarative
 3. Interrogative
 4. Exclamatory
 
 Sentences however can be classified further based on structure.
+
 They can be classified as :
+
 1. Simple : Has 1 independent clause and is a whole sentence
 2. Compound : Uses FANBOYS(coordinating conjunctions) to connect 2 connected clauses(1 independent, 1 dependent)
 3. Complex : Has 1 independent and has atleast 1 dependent clause. Uses subordinate conjunctions.
 
-They aren't easy to classify, as punctuation usage is not well defined.
+> They aren't easy to classify, as punctuation usage is not well defined.
 
 ## Paragraph
 
 A super block of sentences to store various other information. 
 Each paragraph speaks on either one topic, or gives opinions of a person.
 They are of the following types:
+
 1. Descriptive
 2. Expository
 3. Narrative
